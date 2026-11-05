@@ -1,0 +1,41 @@
+from multiprocessing.pool import ThreadPool
+import random
+import time
+
+
+def somar_linha(parametros):
+    id = parametros[0]
+    valores = parametros[1]
+
+    soma = 0
+
+    for valor in valores:
+        soma = soma + valor
+        time.sleep(0.2)
+
+    print(f"Linha #{id}: soma = {soma}")
+
+
+def main():
+    args = [0] * 3
+
+    for i in range(3):
+        id = i + 1
+
+        valor1 = random.randint(1, 100)
+        valor2 = random.randint(1, 100)
+        valor3 = random.randint(1, 100)
+        valor4 = random.randint(1, 100)
+        valor5 = random.randint(1, 100)
+
+        valores = [valor1, valor2, valor3, valor4, valor5]
+        parametros = [id, valores]
+
+        args[i] = parametros
+
+    with ThreadPool(3) as pool:
+        pool.map(somar_linha, args)
+
+
+if __name__ == "__main__":
+    main()
