@@ -1,0 +1,18 @@
+from multiprocessing.pool import ThreadPool
+import time
+
+
+def mostrar_id(id):
+    time.sleep(0.5)
+    print(f"Thread #{id}")
+
+
+def main():
+    args = [1, 2, 3, 4, 5]
+
+    with ThreadPool(5) as pool:
+        pool.map(mostrar_id, args)
+
+
+if __name__ == "__main__":
+    main()   
