@@ -1,0 +1,30 @@
+from multiprocessing.pool import ThreadPool
+import random
+import time
+
+
+def correr_sapo(id):
+    distancia_percorrida = 0
+    distancia_maxima = 30
+    tamanho_maximo_pulo = 5
+
+    while distancia_percorrida < distancia_maxima:
+        time.sleep(0.2)
+
+        pulo = random.randint(0, tamanho_maximo_pulo)
+        distancia_percorrida = distancia_percorrida + pulo
+
+        print(f"Sapo #{id} pulou {pulo} cm. Total percorrido: {distancia_percorrida} cm.")
+
+    print(f"Sapo #{id} chegou!")
+
+
+def main():
+    args = [1, 2, 3, 4, 5]
+
+    with ThreadPool(5) as pool:
+        pool.map(correr_sapo, args)
+
+
+if __name__ == "__main__":
+    main()
